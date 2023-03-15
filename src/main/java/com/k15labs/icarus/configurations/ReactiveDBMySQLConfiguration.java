@@ -1,0 +1,27 @@
+package com.k15labs.icarus.configurations;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.r2dbc.connection.init.ConnectionFactoryInitializer;
+import org.springframework.r2dbc.connection.init.ResourceDatabasePopulator;
+
+import io.r2dbc.spi.ConnectionFactory;
+
+@Configuration
+public class ReactiveDBMySQLConfiguration 
+{
+
+
+    @Bean
+    public ConnectionFactoryInitializer initializer(ConnectionFactory connectionFactory) {
+        
+        ConnectionFactoryInitializer initializer = new ConnectionFactoryInitializer();
+
+    initializer.setConnectionFactory(connectionFactory);
+    initializer.setDatabasePopulator(new ResourceDatabasePopulator(new ClassPathResource("mysql_schema.sql")));
+
+    return initializer;
+  }
+    
+}
